@@ -1,0 +1,3 @@
+jdbc.host=localhost:3306/test
+jdbc.username=test
+jdbc.password=test

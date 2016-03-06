@@ -22,30 +22,29 @@ public class ProcessorImpl implements Processor {
     static final Logger logger = LoggerFactory.getLogger(ProcessorImpl.class);
 
     public void process(List<String> list, Saver saver) {
-        for(String page : list){
+        for (String page : list) {
             try {
                 Parser parser = new Parser(page);
-                for (NodeIterator i = parser.elements (); i.hasMoreNodes(); ) {
+                for (NodeIterator i = parser.elements(); i.hasMoreNodes(); ) {
                     Node node = i.nextNode();
 
                     NodeList nodeList = new NodeList();
                     NodeFilter nodeFilter = (NodeFilter) new TagNameFilter("a");
-                  //  node.collectInto(nodeList,nodeFilter);
-                   // for(Node n : nodeList.toNodeArray()){
-                  //      System.out.println(n);
-                  //  }
+                    //  node.collectInto(nodeList,nodeFilter);
+                    // for(Node n : nodeList.toNodeArray()){
+                    //      System.out.println(n);
+                    //  }
                     NodeList nodes = parser.extractAllNodesThatMatch(nodeFilter);
-                    for(Node n : nodes.toNodeArray()){
+                    for (Node n : nodes.toNodeArray()) {
                         System.out.println(n.getText());
-                    }
 
+                    }
                     // System.out.println(node.getChildren());
                 }
 
-                } catch (ParserException e) {
+            } catch (ParserException e) {
                 e.printStackTrace();
             }
-
         }
     }
 }

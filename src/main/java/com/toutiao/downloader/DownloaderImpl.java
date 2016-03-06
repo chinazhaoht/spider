@@ -20,13 +20,15 @@ import java.util.concurrent.*;
 public class DownloaderImpl implements Downloader{
 
 
-    private List<String> pages = new ArrayList<String>();
-
-    private List<String> ll = new Vector<String>();
+    private List<String> pages ;
 
     private HttpClient client = new DefaultHttpClient();
 
     private RestTemplate template = new RestTemplate();
+
+    public DownloaderImpl(List<String> pages){
+        this.pages = pages;
+    }
 
     public List<String> download(List<String> list) {
 

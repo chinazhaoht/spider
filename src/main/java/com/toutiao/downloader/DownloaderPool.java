@@ -28,7 +28,6 @@ public class DownloaderPool {
             }finally {
                 lock.writeLock().unlock();
             }
-
         }
         return downloader_pool;
     }

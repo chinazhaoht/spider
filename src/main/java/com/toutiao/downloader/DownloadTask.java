@@ -16,6 +16,7 @@ public class DownloadTask implements Callable {
 
         RestTemplate template = new RestTemplate();
         String page = template.getForObject(url, String.class);
+        System.out.println("ssssssssss"+Thread.currentThread());
         return page;
     }
 }
