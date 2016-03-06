@@ -11,13 +11,18 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
+import java.util.concurrent.*;
 
 /**
  * Created by zhaoht on 2016-03-06.
  */
-public class DownloaderImpl implements Downloader {
+public class DownloaderImpl implements Downloader{
+
 
     private List<String> pages = new ArrayList<String>();
+
+    private List<String> ll = new Vector<String>();
 
     private HttpClient client = new DefaultHttpClient();
 
@@ -27,9 +32,17 @@ public class DownloaderImpl implements Downloader {
 
         for(String url : list){
             System.out.println(url);
-            String page = template.getForObject(url,String.class);
-            System.out.println(page);
-            pages.add(page);
+            Future<String> future =  DownloaderPool.getDownloaderPool().submit(new DownloadTask(url));
+            String page = null;
+            try {
+                page = future.get();
+                System.out.println(page);
+                pages.add(page);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         }
         return pages;
     }
